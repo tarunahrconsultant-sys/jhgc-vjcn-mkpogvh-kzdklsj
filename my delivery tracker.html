@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>My Delivery Tracker</h1>
+    <button onclick="saveorder()">save order</button>
+    <button onclick="startdelivery()">start delivery</button>
+
+    <div>json text : <span id="json-text"></span></div>
+    <div>loaded item : <span id="loaded-item"></span></div>
+    <div>loaded price : <span id="loaded-price"></span></div>
+    <div>status : <span id="status"></span></div>
+    <div>result : <span id="result"></span></div>
+    <script>
+        let order={
+            item:"guitaro sickle",
+            price:5,
+            shop:"XTZeto weaponry"
+        }
+        function saveorder(){
+            let jsontext=JSON.stringify(order)
+            let loadedorder=JSON.parse(jsontext)
+            document.getElementById("json-text").innerHTML=jsontext
+             document.getElementById("loaded-item").innerHTML = loadedorder.item
+              document.getElementById("loaded-price").innerHTML ="$"+loadedorder.price
+        }
+        function delay(ms){
+            return new Promise(function(resolve){
+                setTimeout(resolve,ms)
+            })
+        }
+        async function startdelivery(){
+            document.getElementById("result").innerHTML =""
+            document.getElementById("status").innerHTML ="order receaved"
+            setTimeout(function(){
+                document.getElementById("status").innerHTML ="Kitchen is prepareing...."
+            },1000)
+            await delay(3000)
+            document.getElementById("status").innerHTML ="Out for delivery"
+            await delay(2000)
+            document.getElementById("result").innerHTML = "Your order has arrived"
+        }
+    </script>
+</body>
+</html>
